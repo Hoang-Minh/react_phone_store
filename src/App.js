@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar";
@@ -12,14 +12,15 @@ import Modal from "./components/Modal";
 function App() {
   return (
     <Fragment>
-      <Navbar></Navbar>
-      <Switch>
-        <Route exact path="/" component={ProductList}></Route>
-        <Route path="/details" component={Details}></Route>
-        <Route path="/cart" component={Cart}></Route>
-        <Route component={Default}></Route>
-      </Switch>
-      <Modal></Modal>
+      <BrowserRouter>
+        <Navbar></Navbar>
+        <Switch>
+          <Route exact path="/" component={ProductList}></Route>
+          <Route exact path="/cart" component={Cart}></Route>
+          <Route component={Default}></Route>
+          {/* <Route path="/details" component={Details}></Route> */}
+        </Switch>
+      </BrowserRouter>
     </Fragment>
   );
 }

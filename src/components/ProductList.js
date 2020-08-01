@@ -1,23 +1,30 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { fetchPhones } from "../actions";
 import Product from "./Product";
 import Title from "./Title";
 import { ProductConsumer } from "../context";
 
-export default class ProductList extends Component {
+class ProductList extends Component {
+  // state = { storeProducts: [] };
+
+  componentDidMount = () => {
+    console.log("componet Did mount");
+    this.props.fetchPhones();
+  };
+
   render() {
+    if (!this.props.phones) return null;
+
     return (
       <Fragment>
         <div className="py-5">
           <div className="container">
             <Title name="our" title="products"></Title>
             <div className="row">
-              <ProductConsumer>
-                {(value) => {
-                  return value.products.map((product) => (
-                    <Product key={product.id} product={product}></Product>
-                  ));
-                }}
-              </ProductConsumer>
+              {this.props.phones.map((phone) => (
+                <Product key={phone.id} product={phone}></Product>
+              ))}
             </div>
           </div>
         </div>
@@ -25,3 +32,11 @@ export default class ProductList extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    phones: state.phones,
+  };
+};
+
+export default connect(mapStateToProps, { fetchPhones })(ProductList);
