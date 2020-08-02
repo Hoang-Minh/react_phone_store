@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { clearCart } from "../../actions";
 import { Link } from "react-router-dom";
 import PayPalButton from "./PayPalButton";
 
@@ -8,7 +10,7 @@ class CartTotals extends Component {
     const subTotal = addedPhones
       .map((phone) => parseFloat(phone.price) * parseFloat(phone.total))
       .reduce((a, b) => a + b);
-    const tax = subTotal * 0.1;
+    const tax = (subTotal * 0.1).toFixed(2);
     const total = subTotal + tax;
 
     return (
@@ -20,7 +22,7 @@ class CartTotals extends Component {
                 <button
                   className="btn btn-outline-danger text-uppercase mb-3 px-5"
                   type="button"
-                  onClick={() => console.log("clear cart")}
+                  onClick={() => this.props.clearCart()}
                 >
                   clear cart
                 </button>
@@ -45,7 +47,7 @@ class CartTotals extends Component {
               </h5>
               <PayPalButton
                 total={total}
-                // clearCart={clearCart}
+                clearCart={clearCart}
                 history={history}
               ></PayPalButton>
             </div>
@@ -56,4 +58,4 @@ class CartTotals extends Component {
   }
 }
 
-export default CartTotals;
+export default connect(null, { clearCart })(CartTotals);

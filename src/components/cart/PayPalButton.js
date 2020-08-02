@@ -1,6 +1,5 @@
 import React from "react";
 import PaypalExpressBtn from "react-paypal-express-checkout";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default class MyApp extends React.Component {

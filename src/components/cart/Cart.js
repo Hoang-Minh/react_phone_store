@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Title from "../Title";
 import CartColumn from "./CartColumn";
 import EmptyCart from "./EmptyCart";
-import { ProductConsumer } from "../../context";
 import CartList from "./CartList";
 import CartTotals from "./CartTotals";
 
@@ -17,12 +16,13 @@ class Cart extends Component {
 
     return (
       <section>
-        <Fragment>
-          <Title name="Your" title="cart"></Title>
-          <CartColumn></CartColumn>
-          <CartList addedPhones={addedPhones}></CartList>
-          <CartTotals addedPhones={addedPhones} history={this.props.history}></CartTotals>
-        </Fragment>
+        <Title name="Your" title="cart"></Title>
+        <CartColumn></CartColumn>
+        <CartList addedPhones={addedPhones}></CartList>
+        <CartTotals
+          addedPhones={addedPhones}
+          history={this.props.history}
+        ></CartTotals>
       </section>
     );
   }

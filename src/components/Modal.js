@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { ProductConsumer } from "../context";
 import { ButtonContainer } from "./Button";
 import { connect } from "react-redux";
 
@@ -11,7 +10,7 @@ class Modal extends Component {
     if (!this.props.selectedProduct) return null;
     const { title, img, price } = this.props.selectedProduct;
     const { history } = this.props;
-    console.log(title, img, price);
+
     return (
       <ModalContainer>
         <div className="container">
@@ -69,7 +68,6 @@ const ModalContainer = styled.div`
 `;
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps);
   return {
     selectedProduct: ownProps
       ? state.phones.find((phone) => phone.id === ownProps.id)

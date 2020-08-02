@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
-
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addPhoneToCart } from "../actions";
-import { ProductConsumer } from "../context";
 import PropTypes from "prop-types";
 import Modal from "./Modal";
 
@@ -13,6 +12,12 @@ class Product extends Component {
 
   onDismiss = () => {
     this.setState({ openModal: false });
+  };
+
+  onAddToCart = (event, id) => {
+    event.stopPropagation();
+    this.props.addPhoneToCart(id);
+    this.setState({ openModal: true });
   };
 
   render() {
@@ -28,7 +33,7 @@ class Product extends Component {
           <div className="card">
             <div
               className="img-container p-5"
-              onClick={() => console.log("hande detail")}
+              onClick={() => history.push("/details", { id })}
             >
               <Link to="/details">
                 <img src={img} alt="product" className="card-img-top"></img>
@@ -36,14 +41,7 @@ class Product extends Component {
               <button
                 className="cart-btn"
                 disabled={inCart ? true : false}
-                // onClick={() => {
-                //   value.addToCart(id);
-                //   value.openModal(id);
-                // }}
-                onClick={() => {
-                  this.props.addPhoneToCart(id);
-                  this.setState({ openModal: true });
-                }}
+                onClick={(event) => this.onAddToCart(event, id)}
               >
                 {inCart ? (
                   <p className="text-capitalize mb-0" disabled>
@@ -143,4 +141,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addPhoneToCart })(Product);
+export default connect(mapStateToProps, { addPhoneToCart })(
+  withRouter(Product)
+);

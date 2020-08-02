@@ -3,13 +3,9 @@ import { connect } from "react-redux";
 import { fetchPhones } from "../actions";
 import Product from "./Product";
 import Title from "./Title";
-import { ProductConsumer } from "../context";
 
 class ProductList extends Component {
-  // state = { storeProducts: [] };
-
   componentDidMount = () => {
-    console.log("componet Did mount");
     this.props.fetchPhones();
   };
 
